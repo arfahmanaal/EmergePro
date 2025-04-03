@@ -7,7 +7,7 @@ export const users: User[] = [
     email: 'john.doe@example.com',
     role: 'trainee',
     department: 'Engineering',
-    avatar: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+    avatar: 'https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   {
     id: '2',

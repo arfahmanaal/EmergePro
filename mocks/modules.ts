@@ -7,7 +7,7 @@ export const modules: Module[] = [
     description: 'Learn the essential safety protocols and procedures for maintaining a safe workplace environment.',
     duration: 60,
     category: 'Safety',
-    thumbnail: 'https://images.unsplash.com/photo-1581093458791-9f3c3900df7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
+    thumbnail: 'https://plus.unsplash.com/premium_photo-1677529102407-0d075eb2cbb9?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     difficulty: 'beginner',
     required: true,
     sections: [
@@ -171,6 +171,162 @@ export const modules: Module[] = [
         title: 'Customer Service Assessment',
         type: 'quiz',
         content: 'quiz-4',
+        duration: 10,
+      },
+    ],
+  },
+  {
+    id: '5',
+    title: 'Fire Safety and Emergency Evacuation',
+    description: 'Comprehensive training on fire prevention, emergency response, and evacuation procedures to ensure workplace safety during fire incidents.',
+    duration: 95,
+    category: 'Safety',
+    thumbnail: 'https://images.unsplash.com/photo-1520606393001-b816ded9caac?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    difficulty: 'beginner',
+    required: true,
+    sections: [
+      {
+        id: '5-1',
+        title: 'Fire Safety Basics',
+        type: 'video',
+        content: 'https://www.youtube.com/embed/qm7k68Pv0wU',
+        duration: 15,
+      },
+      {
+        id: '5-2',
+        title: 'Types of Fire Extinguishers',
+        type: 'reading',
+        content: `
+# Fire Extinguisher Types and Their Uses
+
+Fire extinguishers are classified based on the type of fire they can extinguish. Understanding these classifications is crucial for effective fire response.
+
+## Class A: Ordinary Combustibles
+- **Materials**: Paper, wood, cloth, rubber, many plastics
+- **Extinguisher Type**: Water, foam, multipurpose dry chemical
+- **Identification**: Green triangle symbol with "A"
+
+## Class B: Flammable Liquids
+- **Materials**: Gasoline, oil, grease, acetone, paint thinners
+- **Extinguisher Type**: Foam, CO2, dry chemical
+- **Identification**: Red square symbol with "B"
+
+## Class C: Electrical Equipment
+- **Materials**: Energized electrical equipment, wiring, fuse boxes
+- **Extinguisher Type**: CO2, dry chemical (never use water)
+- **Identification**: Blue circle symbol with "C"
+
+## Class D: Combustible Metals
+- **Materials**: Magnesium, titanium, sodium, lithium
+- **Extinguisher Type**: Dry powder specifically for metal fires
+- **Identification**: Yellow star symbol with "D"
+
+## Class K: Cooking Oils & Fats
+- **Materials**: Vegetable oils, animal fats in cooking appliances
+- **Extinguisher Type**: Wet chemical
+- **Identification**: Black hexagon symbol with "K"
+
+## Multi-Purpose Extinguishers
+Most common in workplaces are ABC extinguishers, which can handle ordinary combustibles, flammable liquids, and electrical fires.
+
+## Using a Fire Extinguisher: Remember PASS
+1. **P**ull the pin
+2. **A**im at the base of the fire
+3. **S**queeze the handle
+4. **S**weep from side to side
+
+Always ensure you have a clear escape path before attempting to fight a fire, and never hesitate to evacuate if the fire grows beyond control.
+`,
+        duration: 20,
+      },
+      {
+        id: '5-3',
+        title: 'Fire Extinguisher Operation',
+        type: 'video',
+        content: 'https://www.youtube.com/embed/PQV71INDaqY',
+        duration: 10,
+      },
+      {
+        id: '5-4',
+        title: 'Emergency Evacuation Procedures',
+        type: 'reading',
+        content: `
+# Emergency Evacuation Procedures
+
+Proper evacuation procedures are critical for ensuring everyone's safety during a fire emergency.
+
+## Before an Emergency
+
+### Know Your Evacuation Plan
+- Familiarize yourself with all exit routes from your work area
+- Locate the nearest emergency exits and stairwells
+- Identify your designated assembly point outside the building
+- Know the location of fire alarm pull stations and fire extinguishers
+
+### Prepare for Special Needs
+- If you or a colleague has mobility limitations, develop a personal evacuation plan
+- Identify evacuation assistants who can help those with special needs
+- Ensure evacuation chairs are available for multi-story buildings
+
+## During an Evacuation
+
+### When the Alarm Sounds
+1. Remain calm and stop what you're doing immediately
+2. If safe, quickly gather essential personal items (ID, phone, medications)
+3. Close doors and windows as you leave, but do not lock them
+4. Feel doors with the back of your hand before opening - if hot, find another exit
+5. Use stairs, never elevators
+6. Stay low if there's smoke (crawl if necessary)
+7. Follow illuminated exit signs to the nearest emergency exit
+
+### At the Assembly Point
+1. Report to your designated assembly area
+2. Check in with your floor warden or supervisor
+3. Report any missing colleagues or those who need assistance
+4. Wait for further instructions - never re-enter until authorized
+
+## Special Situations
+
+### If You're Trapped
+- Close doors between you and the fire
+- Seal door cracks and vents with cloth or tape to keep smoke out
+- Call emergency services and report your exact location
+- Signal for help at windows with a light-colored cloth
+
+### Assisting Others
+- Offer assistance to those with disabilities or special needs
+- Guide visually impaired individuals by offering your elbow
+- Help those with mobility issues to safe areas if evacuation is not possible
+
+## After an Evacuation
+- Remain at the assembly point until instructed otherwise
+- Follow all instructions from emergency personnel
+- Report any information about the fire or trapped persons
+- Participate in roll calls or accountability procedures
+
+Remember: Your safety is the priority. Never delay evacuation to save possessions or complete work tasks.
+`,
+        duration: 15,
+      },
+      {
+        id: '5-5',
+        title: 'Interactive Fire Drill Simulation',
+        type: 'simulation',
+        content: 'https://www.edapp.com/course/fire-safety-training',
+        duration: 25,
+      },
+      {
+        id: '5-6',
+        title: 'Fire Safety VR Experience',
+        type: 'simulation',
+        content: 'https://www.youtube.com/embed/gCNgxLi1JZA',
+        duration: 10,
+      },
+      {
+        id: '5-7',
+        title: 'Fire Safety Assessment',
+        type: 'quiz',
+        content: 'quiz-5',
         duration: 10,
       },
     ],

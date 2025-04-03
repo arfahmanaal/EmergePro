@@ -85,4 +85,68 @@ export const quizzes: Quiz[] = [
       },
     ],
   },
+  {
+    id: 'quiz-5',
+    moduleId: '5',
+    title: 'Fire Safety Assessment',
+    description: 'Test your knowledge of fire safety and emergency evacuation procedures.',
+    passingScore: 80,
+    questions: [
+      {
+        id: 'q5-1',
+        text: 'What does the acronym PASS stand for when using a fire extinguisher?',
+        options: [
+          { id: 'q5-1-a', text: 'Pull, Aim, Spray, Sweep', isCorrect: false },
+          { id: 'q5-1-b', text: 'Pull, Aim, Squeeze, Sweep', isCorrect: true },
+          { id: 'q5-1-c', text: 'Point, Activate, Spray, Secure', isCorrect: false },
+          { id: 'q5-1-d', text: 'Prepare, Aim, Shoot, Secure', isCorrect: false },
+        ],
+        explanation: 'PASS stands for Pull the pin, Aim at the base of the fire, Squeeze the handle, and Sweep from side to side.',
+      },
+      {
+        id: 'q5-2',
+        text: 'Which type of fire extinguisher should NOT be used on electrical fires?',
+        options: [
+          { id: 'q5-2-a', text: 'CO2 extinguishers', isCorrect: false },
+          { id: 'q5-2-b', text: 'Dry chemical extinguishers', isCorrect: false },
+          { id: 'q5-2-c', text: 'Water extinguishers', isCorrect: true },
+          { id: 'q5-2-d', text: 'Class C extinguishers', isCorrect: false },
+        ],
+        explanation: 'Water conducts electricity and can cause electrocution if used on electrical fires. Always use CO2 or dry chemical extinguishers for electrical fires.',
+      },
+      {
+        id: 'q5-3',
+        text: 'What should you do if your primary evacuation route is blocked by fire or smoke?',
+        options: [
+          { id: 'q5-3-a', text: 'Try to run through the smoke quickly', isCorrect: false },
+          { id: 'q5-3-b', text: 'Wait in your current location until help arrives', isCorrect: false },
+          { id: 'q5-3-c', text: 'Use an alternative evacuation route', isCorrect: true },
+          { id: 'q5-3-d', text: 'Use the elevator to evacuate', isCorrect: false },
+        ],
+        explanation: 'Always have multiple evacuation routes planned. If your primary route is blocked, immediately use an alternative route to safely exit the building.',
+      },
+      {
+        id: 'q5-4',
+        text: 'What is the correct action if your clothes catch fire?',
+        options: [
+          { id: 'q5-4-a', text: 'Run to find water', isCorrect: false },
+          { id: 'q5-4-b', text: 'Stop, drop, and roll', isCorrect: true },
+          { id: 'q5-4-c', text: 'Remove the burning clothing immediately', isCorrect: false },
+          { id: 'q5-4-d', text: 'Fan the flames to extinguish them', isCorrect: false },
+        ],
+        explanation: 'Stop, drop, and roll is the correct procedure if your clothes catch fire. This helps smother the flames and prevent them from spreading upward toward your face.',
+      },
+      {
+        id: 'q5-5',
+        text: 'During a fire evacuation, when is it appropriate to use elevators?',
+        options: [
+          { id: 'q5-5-a', text: 'When you are on a high floor', isCorrect: false },
+          { id: 'q5-5-b', text: 'When the fire alarm is sounding', isCorrect: false },
+          { id: 'q5-5-c', text: 'When assisting someone with mobility issues', isCorrect: false },
+          { id: 'q5-5-d', text: 'Never during a fire evacuation', isCorrect: true },
+        ],
+        explanation: 'Elevators should never be used during a fire evacuation as they may malfunction, trap occupants, or open on the fire floor. Always use stairs.',
+      },
+    ],
+  },
 ];

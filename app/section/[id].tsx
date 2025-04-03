@@ -5,7 +5,8 @@ import {
   StyleSheet, 
   ScrollView, 
   TouchableOpacity, 
-  SafeAreaView
+  SafeAreaView,
+  Platform
 } from 'react-native';
 import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -22,6 +23,7 @@ import { modules } from '@/mocks/modules';
 import { useAuthStore } from '@/store/auth-store';
 import { useProgressStore } from '@/store/progress-store';
 import { Button } from '@/components/Button';
+import { WebView } from '@/components/WebView';
 import colors from '@/constants/colors';
 
 export default function SectionDetailScreen() {
@@ -114,41 +116,88 @@ export default function SectionDetailScreen() {
   const renderContent = () => {
     switch (section.type) {
       case 'video':
-        return (
-          <View style={styles.videoContainer}>
-            <View style={styles.videoPlaceholder}>
-              <PlayCircle size={48} color="#FFFFFF" />
+        if (section.content.includes('youtube.com') || section.content.includes('youtu.be')) {
+          return (
+            <View style={styles.videoContainer}>
+              <View style={styles.videoWrapper}>
+                <WebView
+                  source={{ uri: section.content }}
+                  style={styles.videoPlayer}
+                />
+              </View>
+              <Text style={styles.videoCaption}>
+                {section.title} - {module.title}
+              </Text>
             </View>
-            <Text style={styles.videoText}>
-              Video content would be displayed here in a real application.
-            </Text>
-          </View>
-        );
+          );
+        } else {
+          return (
+            <View style={styles.videoContainer}>
+              <View style={styles.videoPlaceholder}>
+                <PlayCircle size={48} color="#FFFFFF" />
+              </View>
+              <Text style={styles.videoText}>
+                Video content would be displayed here in a real application.
+              </Text>
+            </View>
+          );
+        }
       case 'reading':
         return (
           <View style={styles.readingContainer}>
-            <Text style={styles.readingText}>
-              {section.content}
-            </Text>
-            <Text style={styles.readingText}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.
-            </Text>
-            <Text style={styles.readingText}>
-              Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.
-            </Text>
+            {section.content.startsWith('#') ? (
+              <MarkdownRenderer content={section.content} />
+            ) : (
+              <Text style={styles.readingText}>
+                {section.content}
+              </Text>
+            )}
           </View>
         );
       case 'simulation':
-        return (
-          <View style={styles.simulationContainer}>
-            <View style={styles.simulationPlaceholder}>
-              <Gamepad2 size={48} color="#FFFFFF" />
+        if (section.content.includes('youtube.com') || section.content.includes('youtu.be')) {
+          return (
+            <View style={styles.simulationContainer}>
+              <View style={styles.videoWrapper}>
+                <WebView
+                  source={{ uri: section.content }}
+                  style={styles.videoPlayer}
+                />
+              </View>
+              <Text style={styles.simulationCaption}>
+                VR Simulation Preview: {section.title}
+              </Text>
             </View>
-            <Text style={styles.simulationText}>
-              Interactive simulation would be displayed here in a real application.
-            </Text>
-          </View>
-        );
+          );
+        } else if (section.content.includes('http')) {
+          return (
+            <View style={styles.simulationContainer}>
+              <View style={styles.simulationWrapper}>
+                <WebView
+                  source={{ uri: section.content }}
+                  style={styles.simulationFrame}
+                />
+              </View>
+              <Text style={styles.simulationCaption}>
+                Interactive Simulation: {section.title}
+              </Text>
+              <Text style={styles.simulationInstructions}>
+                Complete this interactive simulation to practice your skills in a safe environment.
+              </Text>
+            </View>
+          );
+        } else {
+          return (
+            <View style={styles.simulationContainer}>
+              <View style={styles.simulationPlaceholder}>
+                <Gamepad2 size={48} color="#FFFFFF" />
+              </View>
+              <Text style={styles.simulationText}>
+                Interactive simulation would be displayed here in a real application.
+              </Text>
+            </View>
+          );
+        }
       default:
         return (
           <View style={styles.defaultContainer}>
@@ -234,6 +283,73 @@ export default function SectionDetailScreen() {
   );
 }
 
+// Simple Markdown renderer for reading content
+const MarkdownRenderer = ({ content }: { content: string }) => {
+  const lines = content.split('\n');
+  
+  return (
+    <View>
+      {lines.map((line, index) => {
+        // Heading 1
+        if (line.startsWith('# ')) {
+          return (
+            <Text key={index} style={styles.mdH1}>
+              {line.substring(2)}
+            </Text>
+          );
+        }
+        // Heading 2
+        else if (line.startsWith('## ')) {
+          return (
+            <Text key={index} style={styles.mdH2}>
+              {line.substring(3)}
+            </Text>
+          );
+        }
+        // Heading 3
+        else if (line.startsWith('### ')) {
+          return (
+            <Text key={index} style={styles.mdH3}>
+              {line.substring(4)}
+            </Text>
+          );
+        }
+        // List item
+        else if (line.startsWith('- ')) {
+          return (
+            <View key={index} style={styles.mdListItem}>
+              <Text style={styles.mdListBullet}>•</Text>
+              <Text style={styles.mdListText}>{line.substring(2)}</Text>
+            </View>
+          );
+        }
+        // Numbered list item
+        else if (/^\d+\.\s/.test(line)) {
+          const number = line.match(/^\d+/)?.[0] || '';
+          return (
+            <View key={index} style={styles.mdListItem}>
+              <Text style={styles.mdListNumber}>{number}.</Text>
+              <Text style={styles.mdListText}>{line.substring(number.length + 2)}</Text>
+            </View>
+          );
+        }
+        // Empty line
+        else if (line.trim() === '') {
+          return <View key={index} style={styles.mdEmptyLine} />;
+        }
+        // Regular paragraph
+        else {
+          return (
+            <Text key={index} style={styles.mdParagraph}>
+              {line}
+            </Text>
+          );
+        }
+      })}
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -287,6 +403,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 24,
   },
+  videoWrapper: {
+    width: '100%',
+    height: 220,
+    borderRadius: 8,
+    overflow: 'hidden',
+    marginBottom: 12,
+  },
+  videoPlayer: {
+    flex: 1,
+  },
+  videoCaption: {
+    fontSize: 14,
+    color: colors.light.subtext,
+    textAlign: 'center',
+  },
   videoPlaceholder: {
     width: '100%',
     height: 200,
@@ -313,6 +444,30 @@ const styles = StyleSheet.create({
   simulationContainer: {
     alignItems: 'center',
     marginBottom: 24,
+  },
+  simulationWrapper: {
+    width: '100%',
+    height: 400,
+    borderRadius: 8,
+    overflow: 'hidden',
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: colors.light.border,
+  },
+  simulationFrame: {
+    flex: 1,
+  },
+  simulationCaption: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: colors.light.text,
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  simulationInstructions: {
+    fontSize: 14,
+    color: colors.light.subtext,
+    textAlign: 'center',
   },
   simulationPlaceholder: {
     width: '100%',
@@ -361,5 +516,57 @@ const styles = StyleSheet.create({
   completeButton: {
     flex: 1,
     marginHorizontal: 12,
+  },
+  // Markdown styles
+  mdH1: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: colors.light.text,
+    marginBottom: 16,
+    marginTop: 24,
+  },
+  mdH2: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: colors.light.text,
+    marginBottom: 12,
+    marginTop: 20,
+  },
+  mdH3: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: colors.light.text,
+    marginBottom: 10,
+    marginTop: 16,
+  },
+  mdParagraph: {
+    fontSize: 16,
+    color: colors.light.text,
+    lineHeight: 24,
+    marginBottom: 12,
+  },
+  mdListItem: {
+    flexDirection: 'row',
+    marginBottom: 8,
+    paddingLeft: 8,
+  },
+  mdListBullet: {
+    fontSize: 16,
+    color: colors.light.text,
+    width: 16,
+  },
+  mdListNumber: {
+    fontSize: 16,
+    color: colors.light.text,
+    width: 24,
+  },
+  mdListText: {
+    fontSize: 16,
+    color: colors.light.text,
+    lineHeight: 24,
+    flex: 1,
+  },
+  mdEmptyLine: {
+    height: 12,
   },
 });
